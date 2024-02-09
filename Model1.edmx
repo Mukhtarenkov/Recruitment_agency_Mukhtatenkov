@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище recruitment_agencyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Resume">
+          <Key>
+            <PropertyRef Name="IDResume" />
+          </Key>
+          <Property Name="IDResume" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DadsName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Proficiences" Type="nvarchar(max)" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sobesedovanie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Resume" Type="int" />
+          <Property Name="Vacancy" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="int" />
+        </EntityType>
+        <EntityType Name="Vacancies">
+          <Key>
+            <PropertyRef Name="IDVacancy" />
+          </Key>
+          <Property Name="IDVacancy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vacancy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Employer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Specifications" Type="nvarchar(max)" />
+          <Property Name="Affiliation" Type="nvarchar(max)" />
+          <Property Name="ContanctInfo" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_sobesedovanie_Resume">
+          <End Role="Resume" Type="Self.Resume" Multiplicity="0..1" />
+          <End Role="sobesedovanie" Type="Self.sobesedovanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="IDResume" />
+            </Principal>
+            <Dependent Role="sobesedovanie">
+              <PropertyRef Name="Resume" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sobesedovanie_Vacancies">
+          <End Role="Vacancies" Type="Self.Vacancies" Multiplicity="0..1" />
+          <End Role="sobesedovanie" Type="Self.sobesedovanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vacancies">
+              <PropertyRef Name="IDVacancy" />
+            </Principal>
+            <Dependent Role="sobesedovanie">
+              <PropertyRef Name="Vacancy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище recruitment_agencyModelContainer">
+          <EntitySet Name="Resume" EntityType="Self.Resume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sobesedovanie" EntityType="Self.sobesedovanie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vacancies" EntityType="Self.Vacancies" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_sobesedovanie_Resume" Association="Self.FK_sobesedovanie_Resume">
+            <End Role="Resume" EntitySet="Resume" />
+            <End Role="sobesedovanie" EntitySet="sobesedovanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sobesedovanie_Vacancies" Association="Self.FK_sobesedovanie_Vacancies">
+            <End Role="Vacancies" EntitySet="Vacancies" />
+            <End Role="sobesedovanie" EntitySet="sobesedovanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="recruitment_agencyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Resume">
+          <Key>
+            <PropertyRef Name="IDResume" />
+          </Key>
+          <Property Name="IDResume" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DadsName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Proficiences" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sobesedovanie" Relationship="Self.FK_sobesedovanie_Resume" FromRole="Resume" ToRole="sobesedovanie" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sobesedovanie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Resume" Type="Int32" />
+          <Property Name="Vacancy" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Resume1" Relationship="Self.FK_sobesedovanie_Resume" FromRole="sobesedovanie" ToRole="Resume" />
+          <NavigationProperty Name="Vacancies" Relationship="Self.FK_sobesedovanie_Vacancies" FromRole="sobesedovanie" ToRole="Vacancies" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Vacancies">
+          <Key>
+            <PropertyRef Name="IDVacancy" />
+          </Key>
+          <Property Name="IDVacancy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vacancy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Employer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Affiliation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContanctInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sobesedovanie" Relationship="Self.FK_sobesedovanie_Vacancies" FromRole="Vacancies" ToRole="sobesedovanie" />
+        </EntityType>
+        <Association Name="FK_sobesedovanie_Resume">
+          <End Role="Resume" Type="Self.Resume" Multiplicity="0..1" />
+          <End Role="sobesedovanie" Type="Self.sobesedovanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="IDResume" />
+            </Principal>
+            <Dependent Role="sobesedovanie">
+              <PropertyRef Name="Resume" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sobesedovanie_Vacancies">
+          <End Role="Vacancies" Type="Self.Vacancies" Multiplicity="0..1" />
+          <End Role="sobesedovanie" Type="Self.sobesedovanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vacancies">
+              <PropertyRef Name="IDVacancy" />
+            </Principal>
+            <Dependent Role="sobesedovanie">
+              <PropertyRef Name="Vacancy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="recruitment_agencyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Resume" EntityType="Self.Resume" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sobesedovanie" EntityType="Self.sobesedovanie" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Vacancies" EntityType="Self.Vacancies" />
+          <AssociationSet Name="FK_sobesedovanie_Resume" Association="Self.FK_sobesedovanie_Resume">
+            <End Role="Resume" EntitySet="Resume" />
+            <End Role="sobesedovanie" EntitySet="sobesedovanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sobesedovanie_Vacancies" Association="Self.FK_sobesedovanie_Vacancies">
+            <End Role="Vacancies" EntitySet="Vacancies" />
+            <End Role="sobesedovanie" EntitySet="sobesedovanie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище recruitment_agencyModelContainer" CdmEntityContainer="recruitment_agencyEntities">
+          <EntitySetMapping Name="Resume">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.Resume">
+              <MappingFragment StoreEntitySet="Resume">
+                <ScalarProperty Name="IDResume" ColumnName="IDResume" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="DadsName" ColumnName="DadsName" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Proficiences" ColumnName="Proficiences" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sobesedovanie">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.sobesedovanie">
+              <MappingFragment StoreEntitySet="sobesedovanie">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Resume" ColumnName="Resume" />
+                <ScalarProperty Name="Vacancy" ColumnName="Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vacancies">
+            <EntityTypeMapping TypeName="recruitment_agencyModel.Vacancies">
+              <MappingFragment StoreEntitySet="Vacancies">
+                <ScalarProperty Name="IDVacancy" ColumnName="IDVacancy" />
+                <ScalarProperty Name="Vacancy" ColumnName="Vacancy" />
+                <ScalarProperty Name="Employer" ColumnName="Employer" />
+                <ScalarProperty Name="Specifications" ColumnName="Specifications" />
+                <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
+                <ScalarProperty Name="ContanctInfo" ColumnName="ContanctInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
