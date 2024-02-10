@@ -39,7 +39,7 @@
         <StackPanel Grid.Column="0"  Grid.Row="4" Orientation="Vertical">
             <Button x:Name="btnResume" ToolTipService.ShowOnDisabled="True" Content="Список резюме" Height="20" Width="150" Click="btnResume_Click" ></Button>
             <Separator Height="5" Background="Transparent"/>
-            <Button x:Name="btnRVacancy" ToolTipService.ShowOnDisabled="True" Content="Список резюме" Height="20" Width="150" Click="btnRVacancy_Click" ></Button>
+            <Button x:Name="btnRVacancy" ToolTipService.ShowOnDisabled="True" Content="Список вакансий" Height="20" Width="150" Click="btnRVacancy_Click" ></Button>
 
         </StackPanel>
         

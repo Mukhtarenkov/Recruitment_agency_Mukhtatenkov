@@ -25,9 +25,9 @@
             <StackPanel Orientation="Vertical"  Width="300">
                 <TextBlock Text="Вакансия" Width="100" Height="40" HorizontalAlignment="Right" ></TextBlock>
                 <TextBlock Text="Наниматель" Width="100" Height="40" HorizontalAlignment="Right"></TextBlock>
-                <TextBlock Text="Спецификации" Width="100" Height="40" HorizontalAlignment="Right" ></TextBlock>
-                <TextBlock Text="Принадлежность организации" Width="100" Height="40" HorizontalAlignment="Right" ></TextBlock>
-                <TextBlock Text="Контактные данные" Width="100" Height="40" HorizontalAlignment="Right" ></TextBlock>
+                <TextBlock Text="Спецификации" Width="110" Height="40" HorizontalAlignment="Right" ></TextBlock>
+                <TextBlock Text="Принадлежность организации" Width="170" Height="40" HorizontalAlignment="Right" ></TextBlock>
+                <TextBlock Text="Контактные данные" Width="140" Height="40" HorizontalAlignment="Right" ></TextBlock>
 
             </StackPanel>
             <Separator Background="Transparent" Width="20"/>
